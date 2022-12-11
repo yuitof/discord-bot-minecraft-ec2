@@ -24,22 +24,30 @@ async def on_message(message):
     if message.author.bot:
         return
     if message.content == '/start':
-        print("Instance is starting")
-        await message.channel.send('Instance is starting')
+        print("Instance is being started")
+        await message.channel.send('Instance is being started')
         instance.start()
         instance.wait_until_running()
-        print("Instance started")
+        print("Instance is running")
         await message.channel.send('Instance is running')
         ip = instance.public_ip_address
         print(f"IP_ADDRESS: {ip}")
         await message.channel.send(f"IP_ADDRESS: {ip}")
 
     if message.content == '/stop':
-        print("instance is stopping")
-        await message.channel.send('instance is stopping')
+        print("Instance is being stopped")
+        await message.channel.send('Instance is being stopped')
         instance.stop()
         instance.wait_until_stopped()
-        print("instance is stopped")
-        await message.channel.send('instance is stopped')
+        print("Instance has been stopped")
+        await message.channel.send('Instance has been stopped')
+
+    if message.content == '/state':
+        if instance.state['Name'] == 'running':
+            print('Instance is running')
+            await message.channel.send('Instance is running')
+        else:
+            print('Instance has been stopped')
+            await message.channel.send('Instance has been stopped')
 
 client.run(TOKEN)
