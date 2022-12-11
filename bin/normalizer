@@ -1,4 +1,4 @@
-#!/Users/owner/.anyenv/envs/pyenv/versions/3.10.7/bin/python3.10
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -8,15 +8,16 @@ load_dotenv()
 INSTANCE_ID = os.getenv("INSTANCE_ID")
 TOKEN = os.getenv('TOKEN')
 
+
 Intents = discord.Intents.all()
 client = discord.Client(intents = Intents)
 
-ec2 = boto3.resource('ec2')
+ec2 = boto3.resource('ec2', region_name="ap-northeast-1")
 instance = ec2.Instance(INSTANCE_ID)
 
 @client.event
 async def on_ready():
-    print("ログインしました")
+    print("Ready")
 
 @client.event
 async def on_message(message):
@@ -31,6 +32,7 @@ async def on_message(message):
         await message.channel.send('Instance is running')
         ip = instance.public_ip_address
         print(f"IP_ADDRESS: {ip}")
+        await message.channel.send(f"IP_ADDRESS: {ip}")
 
     if message.content == '/stop':
         print("instance is stopping")
